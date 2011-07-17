@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="VeranoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="VeranoModelStoreContainer">
+          <EntitySet Name="Apartamento" EntityType="VeranoModel.Store.Apartamento" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Morador" EntityType="VeranoModel.Store.Morador" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Opcao" EntityType="VeranoModel.Store.Opcao" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Pergunta" EntityType="VeranoModel.Store.Pergunta" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Predio" EntityType="VeranoModel.Store.Predio" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Resposta" EntityType="VeranoModel.Store.Resposta" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Apartamento_Predio" Association="VeranoModel.Store.FK_Apartamento_Predio">
+            <End Role="Predio" EntitySet="Predio" />
+            <End Role="Apartamento" EntitySet="Apartamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Morador_Apartamento" Association="VeranoModel.Store.FK_Morador_Apartamento">
+            <End Role="Apartamento" EntitySet="Apartamento" />
+            <End Role="Morador" EntitySet="Morador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Opcao_Pergunta" Association="VeranoModel.Store.FK_Opcao_Pergunta">
+            <End Role="Pergunta" EntitySet="Pergunta" />
+            <End Role="Opcao" EntitySet="Opcao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resposta_Morador" Association="VeranoModel.Store.FK_Resposta_Morador">
+            <End Role="Morador" EntitySet="Morador" />
+            <End Role="Resposta" EntitySet="Resposta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resposta_Opcao" Association="VeranoModel.Store.FK_Resposta_Opcao">
+            <End Role="Opcao" EntitySet="Opcao" />
+            <End Role="Resposta" EntitySet="Resposta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resposta_Pergunta" Association="VeranoModel.Store.FK_Resposta_Pergunta">
+            <End Role="Pergunta" EntitySet="Pergunta" />
+            <End Role="Resposta" EntitySet="Resposta" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Apartamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdPredio" Type="int" Nullable="false" />
+          <Property Name="Numero" Type="int" Nullable="false" />
+          <Property Name="FlagInadimplente" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Morador">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Sobrenome" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Cpf" Type="varchar" MaxLength="50" />
+          <Property Name="DataNascimento" Type="date" Nullable="false" />
+          <Property Name="DataCadastro" Type="datetime" Nullable="false" />
+          <Property Name="FlagDisponivel" Type="bit" Nullable="false" />
+          <Property Name="FlagConselheiro" Type="bit" Nullable="false" />
+          <Property Name="IdApartamento" Type="int" Nullable="false" />
+          <Property Name="FlagDeficiente" Type="bit" Nullable="false" />
+          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Celular" Type="varchar" MaxLength="50" />
+          <Property Name="FlagFumante" Type="bit" Nullable="false" />
+          <Property Name="FlagProprietario" Type="bit" Nullable="false" />
+          <Property Name="FlagPraticaEsporte" Type="bit" Nullable="false" />
+          <Property Name="Login" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Opcao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Texto" Type="varchar" MaxLength="200" />
+          <Property Name="IdPergunta" Type="int" Nullable="false" />
+          <Property Name="FlagObservacao" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pergunta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Texto" Type="varchar" MaxLength="500" />
+          <Property Name="Tipo" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Predio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Resposta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdMorador" Type="int" Nullable="false" />
+          <Property Name="IdPergunta" Type="int" Nullable="false" />
+          <Property Name="IdOpcao" Type="int" />
+          <Property Name="Observacao" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK_Apartamento_Predio">
+          <End Role="Predio" Type="VeranoModel.Store.Predio" Multiplicity="1" />
+          <End Role="Apartamento" Type="VeranoModel.Store.Apartamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predio">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Apartamento">
+              <PropertyRef Name="IdPredio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Morador_Apartamento">
+          <End Role="Apartamento" Type="VeranoModel.Store.Apartamento" Multiplicity="1" />
+          <End Role="Morador" Type="VeranoModel.Store.Morador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartamento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Morador">
+              <PropertyRef Name="IdApartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Opcao_Pergunta">
+          <End Role="Pergunta" Type="VeranoModel.Store.Pergunta" Multiplicity="1" />
+          <End Role="Opcao" Type="VeranoModel.Store.Opcao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pergunta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Opcao">
+              <PropertyRef Name="IdPergunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resposta_Morador">
+          <End Role="Morador" Type="VeranoModel.Store.Morador" Multiplicity="1" />
+          <End Role="Resposta" Type="VeranoModel.Store.Resposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Morador">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Resposta">
+              <PropertyRef Name="IdMorador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resposta_Opcao">
+          <End Role="Opcao" Type="VeranoModel.Store.Opcao" Multiplicity="0..1" />
+          <End Role="Resposta" Type="VeranoModel.Store.Resposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Opcao">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Resposta">
+              <PropertyRef Name="IdOpcao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resposta_Pergunta">
+          <End Role="Pergunta" Type="VeranoModel.Store.Pergunta" Multiplicity="1" />
+          <End Role="Resposta" Type="VeranoModel.Store.Resposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pergunta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Resposta">
+              <PropertyRef Name="IdPergunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VeranoModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="VeranoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Apartamento" EntityType="VeranoModel.Apartamento" />
+          <EntitySet Name="Morador" EntityType="VeranoModel.Morador" />
+          <EntitySet Name="Predio" EntityType="VeranoModel.Predio" />
+          <AssociationSet Name="FK_Apartamento_Predio" Association="VeranoModel.FK_Apartamento_Predio">
+            <End EntitySet="Predio" Role="Predio" />
+            <End EntitySet="Apartamento" Role="Apartamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Morador_Apartamento" Association="VeranoModel.FK_Morador_Apartamento">
+            <End EntitySet="Apartamento" Role="Apartamento" />
+            <End EntitySet="Morador" Role="Morador" />
+          </AssociationSet>
+          <EntitySet Name="Opcao" EntityType="VeranoModel.Opcao" />
+          <EntitySet Name="Pergunta" EntityType="VeranoModel.Pergunta" />
+          <EntitySet Name="Resposta" EntityType="VeranoModel.Resposta" />
+          <AssociationSet Name="FK_Resposta_Morador" Association="VeranoModel.FK_Resposta_Morador">
+            <End Role="Morador" EntitySet="Morador" />
+            <End Role="Resposta" EntitySet="Resposta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Opcao_Pergunta" Association="VeranoModel.FK_Opcao_Pergunta">
+            <End Role="Pergunta" EntitySet="Pergunta" />
+            <End Role="Opcao" EntitySet="Opcao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resposta_Opcao" Association="VeranoModel.FK_Resposta_Opcao">
+            <End Role="Opcao" EntitySet="Opcao" />
+            <End Role="Resposta" EntitySet="Resposta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resposta_Pergunta" Association="VeranoModel.FK_Resposta_Pergunta">
+            <End Role="Pergunta" EntitySet="Pergunta" />
+            <End Role="Resposta" EntitySet="Resposta" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Apartamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" Type="Int32" />
+          <Property Name="IdPredio" Nullable="false" Type="Int32" />
+          <Property Name="Numero" Nullable="false" Type="Int32" />
+          <Property Name="FlagInadimplente" Nullable="false" Type="Boolean" />
+          <NavigationProperty Name="Predio" Relationship="VeranoModel.FK_Apartamento_Predio" FromRole="Apartamento" ToRole="Predio" />
+          <NavigationProperty Name="Morador" Relationship="VeranoModel.FK_Morador_Apartamento" FromRole="Apartamento" ToRole="Morador" />
+        </EntityType>
+        <EntityType Name="Morador">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" Type="Int32" />
+          <Property Name="Nome" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Sobrenome" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Cpf" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="DataNascimento" Nullable="false" Type="DateTime" />
+          <Property Name="DataCadastro" Nullable="false" Type="DateTime" />
+          <Property Name="FlagDisponivel" Nullable="false" Type="Boolean" />
+          <Property Name="FlagConselheiro" Nullable="false" Type="Boolean" />
+          <Property Name="IdApartamento" Nullable="false" Type="Int32" />
+          <Property Name="FlagDeficiente" Nullable="false" Type="Boolean" />
+          <Property Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Celular" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <NavigationProperty Name="Apartamento" Relationship="VeranoModel.FK_Morador_Apartamento" FromRole="Morador" ToRole="Apartamento" />
+          <Property Type="Boolean" Name="FlagFumante" Nullable="false" />
+          <Property Type="Boolean" Name="FlagProprietario" Nullable="false" />
+          <Property Type="Boolean" Name="FlagPraticaEsporte" Nullable="false" />
+          <Property Type="String" Name="Login" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Resposta" Relationship="VeranoModel.FK_Resposta_Morador" FromRole="Morador" ToRole="Resposta" />
+        </EntityType>
+        <EntityType Name="Predio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" Type="Int32" />
+          <Property Name="Nome" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <NavigationProperty Name="Apartamento" Relationship="VeranoModel.FK_Apartamento_Predio" FromRole="Predio" ToRole="Apartamento" />
+        </EntityType>
+        <Association Name="FK_Apartamento_Predio">
+          <End Type="VeranoModel.Predio" Multiplicity="1" Role="Predio" />
+          <End Type="VeranoModel.Apartamento" Multiplicity="*" Role="Apartamento" />
+          <ReferentialConstraint>
+            <Principal Role="Predio">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Apartamento">
+              <PropertyRef Name="IdPredio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Morador_Apartamento">
+          <End Type="VeranoModel.Apartamento" Multiplicity="1" Role="Apartamento" />
+          <End Type="VeranoModel.Morador" Multiplicity="*" Role="Morador" />
+          <ReferentialConstraint>
+            <Principal Role="Apartamento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Morador">
+              <PropertyRef Name="IdApartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Opcao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Titulo" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Texto" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IdPergunta" Nullable="false" />
+          <NavigationProperty Name="Pergunta" Relationship="VeranoModel.FK_Opcao_Pergunta" FromRole="Opcao" ToRole="Pergunta" />
+          <NavigationProperty Name="Resposta" Relationship="VeranoModel.FK_Resposta_Opcao" FromRole="Opcao" ToRole="Resposta" />
+          <Property Type="Boolean" Name="FlagObservacao" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pergunta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Titulo" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Texto" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Tipo" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Opcao" Relationship="VeranoModel.FK_Opcao_Pergunta" FromRole="Pergunta" ToRole="Opcao" />
+          <NavigationProperty Name="Resposta" Relationship="VeranoModel.FK_Resposta_Pergunta" FromRole="Pergunta" ToRole="Resposta" />
+        </EntityType>
+        <EntityType Name="Resposta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="IdMorador" Nullable="false" />
+          <Property Type="Int32" Name="IdPergunta" Nullable="false" />
+          <Property Type="Int32" Name="IdOpcao" />
+          <Property Type="String" Name="Observacao" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Morador" Relationship="VeranoModel.FK_Resposta_Morador" FromRole="Resposta" ToRole="Morador" />
+          <NavigationProperty Name="Opcao" Relationship="VeranoModel.FK_Resposta_Opcao" FromRole="Resposta" ToRole="Opcao" />
+          <NavigationProperty Name="Pergunta" Relationship="VeranoModel.FK_Resposta_Pergunta" FromRole="Resposta" ToRole="Pergunta" />
+        </EntityType>
+        <Association Name="FK_Resposta_Morador">
+          <End Type="VeranoModel.Morador" Role="Morador" Multiplicity="1" />
+          <End Type="VeranoModel.Resposta" Role="Resposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Morador">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Resposta">
+              <PropertyRef Name="IdMorador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Opcao_Pergunta">
+          <End Type="VeranoModel.Pergunta" Role="Pergunta" Multiplicity="1" />
+          <End Type="VeranoModel.Opcao" Role="Opcao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pergunta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Opcao">
+              <PropertyRef Name="IdPergunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resposta_Opcao">
+          <End Type="VeranoModel.Opcao" Role="Opcao" Multiplicity="0..1" />
+          <End Type="VeranoModel.Resposta" Role="Resposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Opcao">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Resposta">
+              <PropertyRef Name="IdOpcao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resposta_Pergunta">
+          <End Type="VeranoModel.Pergunta" Role="Pergunta" Multiplicity="1" />
+          <End Type="VeranoModel.Resposta" Role="Resposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pergunta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Resposta">
+              <PropertyRef Name="IdPergunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VeranoModelStoreContainer" CdmEntityContainer="VeranoEntities">
+          <EntitySetMapping Name="Apartamento"><EntityTypeMapping TypeName="VeranoModel.Apartamento"><MappingFragment StoreEntitySet="Apartamento">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="IdPredio" ColumnName="IdPredio" />
+            <ScalarProperty Name="Numero" ColumnName="Numero" />
+            <ScalarProperty Name="FlagInadimplente" ColumnName="FlagInadimplente" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Morador"><EntityTypeMapping TypeName="VeranoModel.Morador"><MappingFragment StoreEntitySet="Morador">
+            <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="FlagPraticaEsporte" ColumnName="FlagPraticaEsporte" />
+                <ScalarProperty Name="FlagProprietario" ColumnName="FlagProprietario" />
+                <ScalarProperty Name="FlagFumante" ColumnName="FlagFumante" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Nome" ColumnName="Nome" />
+            <ScalarProperty Name="Sobrenome" ColumnName="Sobrenome" />
+            <ScalarProperty Name="Cpf" ColumnName="Cpf" />
+            <ScalarProperty Name="DataNascimento" ColumnName="DataNascimento" />
+            <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+            <ScalarProperty Name="FlagDisponivel" ColumnName="FlagDisponivel" />
+            <ScalarProperty Name="FlagConselheiro" ColumnName="FlagConselheiro" />
+            <ScalarProperty Name="IdApartamento" ColumnName="IdApartamento" />
+            <ScalarProperty Name="FlagDeficiente" ColumnName="FlagDeficiente" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="Celular" ColumnName="Celular" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Predio"><EntityTypeMapping TypeName="VeranoModel.Predio"><MappingFragment StoreEntitySet="Predio">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Nome" ColumnName="Nome" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Opcao">
+            <EntityTypeMapping TypeName="VeranoModel.Opcao">
+              <MappingFragment StoreEntitySet="Opcao">
+                <ScalarProperty Name="FlagObservacao" ColumnName="FlagObservacao" />
+                <ScalarProperty Name="IdPergunta" ColumnName="IdPergunta" />
+                <ScalarProperty Name="Texto" ColumnName="Texto" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pergunta">
+            <EntityTypeMapping TypeName="VeranoModel.Pergunta">
+              <MappingFragment StoreEntitySet="Pergunta">
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Texto" ColumnName="Texto" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Resposta">
+            <EntityTypeMapping TypeName="VeranoModel.Resposta">
+              <MappingFragment StoreEntitySet="Resposta">
+                <ScalarProperty Name="Observacao" ColumnName="Observacao" />
+                <ScalarProperty Name="IdOpcao" ColumnName="IdOpcao" />
+                <ScalarProperty Name="IdPergunta" ColumnName="IdPergunta" />
+                <ScalarProperty Name="IdMorador" ColumnName="IdMorador" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Verano">
+        <EntityTypeShape EntityType="VeranoModel.Apartamento" PointX="3" PointY="1.625" Width="1.5" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeranoModel.Morador" PointX="5.25" PointY="1" Width="2" Height="4.0956022135416656" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeranoModel.Predio" PointX="0.75" PointY="2" Width="1.5" Height="1.5956835937499996" IsExpanded="true" />
+        <AssociationConnector ManuallyRouted="false" Association="VeranoModel.FK_Apartamento_Predio">
+          <ConnectorPoint PointX="2.25" PointY="2.797841796875" />
+          <ConnectorPoint PointX="3" PointY="2.797841796875" />
+        </AssociationConnector>
+        <AssociationConnector ManuallyRouted="false" Association="VeranoModel.FK_Morador_Apartamento">
+          <ConnectorPoint PointX="4.5" PointY="2.7112939453125" />
+          <ConnectorPoint PointX="5.25" PointY="2.7112939453125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="VeranoModel.Opcao" Width="1.5" PointX="3" PointY="7.125" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="VeranoModel.Pergunta" Width="1.5" PointX="0.75" PointY="7.125" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="VeranoModel.Resposta" Width="1.5" PointX="8.375" PointY="3.875" Height="2.5571907552083331" />
+        <AssociationConnector Association="VeranoModel.FK_Resposta_Morador" >
+          <ConnectorPoint PointX="7.25" PointY="4.6776025390625" />
+          <ConnectorPoint PointX="8.375" PointY="4.6776025390625" />
+        </AssociationConnector>
+        <AssociationConnector Association="VeranoModel.FK_Opcao_Pergunta" >
+          <ConnectorPoint PointX="2.25" PointY="8.2112939453125" />
+          <ConnectorPoint PointX="3" PointY="8.2112939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="VeranoModel.FK_Resposta_Opcao" >
+          <ConnectorPoint PointX="4.5" PointY="8.2112939453125" />
+          <ConnectorPoint PointX="9.125" PointY="8.2112939453125" />
+          <ConnectorPoint PointX="9.125" PointY="6.4321907552083335" />
+        </AssociationConnector>
+        <AssociationConnector Association="VeranoModel.FK_Resposta_Pergunta" >
+          <ConnectorPoint PointX="1.5" PointY="7.125" />
+          <ConnectorPoint PointX="1.5" PointY="5.9874479166666665" />
+          <ConnectorPoint PointX="8.375" PointY="5.9874479166666665" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,30 @@
+﻿@model Verano.Models.Pergunta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Pergunta</legend>
+
+    <div class="display-label">Titulo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Titulo)
+    </div>
+
+    <div class="display-label">Texto</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Texto)
+    </div>
+
+    <div class="display-label">Tipo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Tipo)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

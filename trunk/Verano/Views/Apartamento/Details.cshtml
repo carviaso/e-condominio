@@ -1,0 +1,30 @@
+﻿@model Verano.Models.Apartamento
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Apartamento</legend>
+
+    <div class="display-label">Predio</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Predio.Nome)
+    </div>
+
+    <div class="display-label">Numero</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Numero)
+    </div>
+
+    <div class="display-label">FlagInadimplente</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FlagInadimplente)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
