@@ -1,0 +1,70 @@
+﻿@model Verano.Models.Morador
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Morador</legend>
+
+    <div class="display-label">Nome</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nome)
+    </div>
+
+    <div class="display-label">Sobrenome</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sobrenome)
+    </div>
+
+    <div class="display-label">Cpf</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Cpf)
+    </div>
+
+    <div class="display-label">DataNascimento</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DataNascimento)
+    </div>
+
+    <div class="display-label">DataCadastro</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DataCadastro)
+    </div>
+
+    <div class="display-label">FlagDisponivel</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FlagDisponivel)
+    </div>
+
+    <div class="display-label">FlagConselheiro</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FlagConselheiro)
+    </div>
+
+    <div class="display-label">Apartamento</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Apartamento.Id)
+    </div>
+
+    <div class="display-label">FlagDeficiente</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FlagDeficiente)
+    </div>
+
+    <div class="display-label">Email</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">Celular</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Celular)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,44 @@
+﻿@model Verano.Models.Resposta
+
+@{
+    ViewBag.Title = "Responder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Responda a Pergunta</h2>
+
+<form action="/pergunta/responder" method="post">
+
+    <input type="hidden" name="IdMorador" value="@ViewData["IdMorador"]" />
+
+<div class="perguntas">
+
+    <div class="pergunta" style="clear:both;margin-bottom:20px;">
+        
+        <input type="hidden" name="IdPergunta" value="@Model.IdPergunta" />
+        
+        <div class="titulo">@Model.Pergunta.Titulo</div>
+        
+        <div class="texto">@Model.Pergunta.Texto</div>
+        
+        @if ("ABERTA".Equals(Model.Pergunta.Tipo))
+        {
+            <textarea name="Observacao">@Model.Observacao</textarea>
+        }
+
+        <div class="opcao">
+        
+        @foreach (var op in Model.Pergunta.Opcao)
+        {
+            <input type="radio" name="IdOpcao" value="@op.Id">@op.Titulo</input>
+            
+            if (op.FlagObservacao)
+            {
+                <input type="text" name="Observacao" value="@Model.Observacao"/>
+            }            
+        }  
+        </div>
+    </div>
+</div>
+    <input type="submit" value="Próxima" />
+</form>

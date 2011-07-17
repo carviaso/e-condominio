@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Verano.Models.Morador>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista de Moradores de Seu Apartamento</h2>
+
+<p>
+    @Html.ActionLink("Cadastrar Morador", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Nome
+        </th>
+        <th>
+            Sobrenome
+        </th>
+        <th>
+            Apartamento
+        </th>
+        <th>
+            É Deficiente
+        </th>
+        <th>
+            E-mail
+        </th>
+        <th>
+            Celular
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sobrenome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apartamento.Predio.Nome) / @Html.DisplayFor(modelItem => item.Apartamento.Numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Celular)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Ver", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Censo", "Respostas", "Pergunta", new { id = item.Id }, new { })
+        </td>
+    </tr>
+}
+
+</table>
